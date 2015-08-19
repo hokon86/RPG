@@ -35,38 +35,36 @@ import net.netne.andycomputer.jrpg.Characters.Player;
 import net.netne.andycomputer.jrpg.Level.*;
 import net.netne.andycomputer.jrpg.Menu.StatsScreen;
 
-public class Engine extends JFrame implements Runnable {
-	private StatsScreen stats = new StatsScreen();
-	private Player player;
-	private Thread mainThread;
-	private Level level;
-	private BufferedImage background;
-	private ArrayList<Tile> textureArray;
-	private Image[] textures = new Image[3];
-	private NPC npc = null;
-	private Teleport teleport = new Teleport();
+public class Engine extends JFrame {
 	public static Random random = new Random();
 	private JPanel content;
 	
-	private boolean running = false;
-	private boolean inBattle = false;
-	private boolean inStat = false;
-	private boolean sceneContainNPC = false;
-	private boolean levelCreated = false;
-	private boolean inShop = false;
-	private boolean gameLoaded = false;
-	private boolean drawStatsBottom = true;
-	private boolean outDoor = true;
-	private boolean drawBackground = true;
-	private boolean playerMoved = true;
-	
-	private static Dimension size = new Dimension(800, 600);
-	
-	private String area = Level.Level1;
-	private int[] typeArray;
-	private int timeSinceBattle = 0;
-	private long messageTimeLeft = 0;
-	private long lastTime = 0;
+	public StatsScreen stats = new StatsScreen();
+	public Player player;
+	public Thread mainThread;
+	public Level level;
+	public BufferedImage background;
+	public ArrayList<Tile> textureArray;
+	public Image[] textures = new Image[3];
+	public NPC npc = null;
+	public Teleport teleport = new Teleport();
+	public boolean running = false;
+	public boolean inBattle = false;
+	public boolean inStat = false;
+	public boolean sceneContainNPC = false;
+	public boolean levelCreated = false;
+	public boolean inShop = false;
+	public boolean gameLoaded = false;
+	public boolean drawStatsBottom = true;
+	public boolean outDoor = true;
+	public boolean drawBackground = true;
+	public boolean playerMoved = true;
+	public Dimension size = new Dimension(800, 600);
+	public String area = Level.Level1;
+	public int[] typeArray;
+	public int timeSinceBattle = 0;
+	public long messageTimeLeft = 0;
+	public long lastTime = 0;
 	
 	public static void TellPlayer(String s){
 		JOptionPane.showMessageDialog(null, s, "Message", JOptionPane.PLAIN_MESSAGE);
@@ -94,12 +92,6 @@ public class Engine extends JFrame implements Runnable {
 		this.addKeyListener(listener);
 		running = true;
 		StartGame();
-		Start();
-	}
-	
-	public void Start(){
-		mainThread = new Thread(this);
-		mainThread.start();
 	}
 	
 	public KeyListener listener = new KeyAdapter(){
@@ -349,32 +341,6 @@ public class Engine extends JFrame implements Runnable {
 		return tile;
 	}
 	
-	public void run() {
-	/*	while(!running){
-			
-		}
-		repaint();
-		while(running){
-			while(!inBattle){
-				tick();
-				render();
-				try{
-					mainThread.sleep(25);
-				} catch(Exception e){
-					e.printStackTrace();
-				}
-			}
-		}*/
-	}
-	
-	public void tick(){
-		
-	}
-	
-	public void render(){
-		
-	}
-	
 	public void StartGame(){
 		if(area == Level.Level1){
 			level = new Level1();
@@ -402,9 +368,6 @@ public class Engine extends JFrame implements Runnable {
 	public Graphics paintPanel(Graphics g){
 		if(!levelCreated)
 			return g;
-		if(!playerMoved){
-			return g;
-		}
 		Graphics2D g2d = (Graphics2D)g;
 		if(!inShop && !inStat){
 			if(background == null){
